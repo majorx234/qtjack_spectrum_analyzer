@@ -14,6 +14,13 @@ include(GNUInstallDirs)
 find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
 find_package(Threads)
 find_package(qtjack)
+find_package(PkgConfig)
+pkg_check_modules(FFTW3 REQUIRED fftw3)
+
+
+set(FFTW_TEST_SOURCES
+  src/fftw_test.cpp
+)
 
 set(QTJACK_SPECTRUM_ANALYZER_APP_SOURCES
   src/qtjack_spectrum_analyzer_app.cpp
@@ -28,6 +35,22 @@ set(QTJACK_SPECTRUM_ANALYZER_WIDGET_HEADERS
 
 QT5_WRAP_CPP(QTJACK_SPECTRUM_ANALYZER_WIDGET_MOCrcs
               ${QTJACK_SPECTRUM_ANALYZER_WIDGET_HEADERS}
+)
+
+add_executable(fftw_test)
+target_sources(fftw_test
+PRIVATE
+  ${FFTW_TEST_SOURCES}
+)
+target_include_directories(fftw_test SYSTEM
+PRIVATE
+  ${FFTW3_INCLUDE_DIRS}
+#  PkgConfig::FFTW
+)
+target_link_libraries(fftw_test 
+PRIVATE
+  ${FFTW3_LIBRARIES}
+#  PkgConfig::FFTW
 )
 
 add_library(qtjack_spectrum_analyzer_widget SHARED)

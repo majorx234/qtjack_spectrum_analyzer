@@ -19,6 +19,7 @@
 #include <QMainWindow>
 #include <signal.h>
 #include <unistd.h>
+#include "qtjack_spectrum_analyzer_widget.hpp"
 
 void catchUnixSignal(int quitSignal) {
   auto handler = [](int sig) -> void {
@@ -41,9 +42,13 @@ void catchUnixSignal(int quitSignal) {
 
 int main(int argc, char *argv[]) {
   QApplication app(argc, argv);
+  app.setApplicationName("qtjack_spectrum_analyzer");
   catchUnixSignal(SIGINT);
 
   QMainWindow main_window;
+  QtJackSpectrumAnalyzerWidget* analyzer = new QtJackSpectrumAnalyzerWidget(&main_window);
+
+  main_window.setCentralWidget(analyzer);
   main_window.show();
   
   return app.exec();

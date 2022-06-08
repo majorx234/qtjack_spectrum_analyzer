@@ -36,7 +36,6 @@ int main() {
   generate_signal(signal);
   p = fftw_plan_dft_1d(SAMPLES, signal, result, FFTW_FORWARD, FFTW_ESTIMATE);
   fftw_execute(p);
-//  fftw_one(p, signal, result);
   fftw_destroy_plan(p);
   print(result);
   return 0;

@@ -33,6 +33,7 @@ SpectrumAnalyzer::SpectrumAnalyzer(size_t samples,
   signal_ = fftw_alloc_complex(samples);
   result_ = fftw_alloc_complex(samples);
   p_ = fftw_plan_dft_1d(samples, signal_, result_, FFTW_FORWARD, FFTW_ESTIMATE);
+  calculate_window_fct();
 }
 
 SpectrumAnalyzer::~SpectrumAnalyzer() {

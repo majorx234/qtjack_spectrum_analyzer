@@ -23,14 +23,14 @@
 class SpectrumAnalyzer {
 
  public:
-  enum class WindowFct{
+  enum class WindowFct {
     NONE = 0,
     HANNING = 1
-  }
+  };
 
   SpectrumAnalyzer(size_t samples,
                    unsigned int sample_rate,
-                   WindowFct window_fct = None);
+                   WindowFct window_fct = WindowFct::NONE);
   ~SpectrumAnalyzer();
   void calculate(const float* in_buffer,float* out_buffer);
  private:
@@ -42,6 +42,6 @@ class SpectrumAnalyzer {
   fftw_complex* signal_;
   fftw_complex* result_;
   fftw_plan p_;
-}
+};
 
 #endif // SPECTRUM_ANALYZER_HPP

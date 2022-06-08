@@ -18,7 +18,7 @@ find_package(PkgConfig)
 pkg_check_modules(FFTW3 REQUIRED fftw3)
 
 set(FFTW_TEST_SOURCES
-  src/fftw_test.cpp
+  src/test/fftw_test.cpp
 )
 
 set(SPECTRUM_ANALYZER_SOURCES
@@ -27,6 +27,10 @@ set(SPECTRUM_ANALYZER_SOURCES
 
 set(SPECTRUM_ANALYZER_HEADERS
   include/spectrum_analyzer.hpp
+)
+
+set(SPECTRUM_ANALYZER_TEST_SOURCES
+  src/test/spectrum_analyzer_test.cpp
 )
 
 set(QTJACK_SPECTRUM_ANALYZER_APP_SOURCES
@@ -63,10 +67,12 @@ PRIVATE
 add_library(spectrum_analyzer)
 target_sources(spectrum_analyzer
 PRIVATE
-  ${FFTW_TEST_SOURCES}
+  ${SPECTRUM_ANALYZER_SOURCES}
+  ${SPECTRUM_ANALYZER_HEADERS}
 )
 target_include_directories(spectrum_analyzer SYSTEM
 PRIVATE
+  include
   ${FFTW3_INCLUDE_DIRS}
 #  PkgConfig::FFTW
 )

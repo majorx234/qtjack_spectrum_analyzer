@@ -82,6 +82,20 @@ PRIVATE
 #  PkgConfig::FFTW
 )
 
+add_executable(spectrum_analyzer_test)
+target_sources(spectrum_analyzer_test
+PRIVATE
+  ${SPECTRUM_ANALYZER_TEST_SOURCES}
+)
+target_include_directories(spectrum_analyzer_test SYSTEM
+PRIVATE
+  include
+)
+target_link_libraries(spectrum_analyzer_test
+PRIVATE
+  spectrum_analyzer
+)
+
 add_library(qtjack_spectrum_analyzer_widget SHARED)
 target_sources(qtjack_spectrum_analyzer_widget
 PRIVATE

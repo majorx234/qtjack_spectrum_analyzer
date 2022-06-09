@@ -45,7 +45,17 @@ set(QTJACK_SPECTRUM_ANALYZER_WIDGET_HEADERS
 )
 
 QT5_WRAP_CPP(QTJACK_SPECTRUM_ANALYZER_WIDGET_MOCrcs
-              ${QTJACK_SPECTRUM_ANALYZER_WIDGET_HEADERS}
+  ${QTJACK_SPECTRUM_ANALYZER_WIDGET_HEADERS}
+)
+
+set(SPECTRUM_DISPLAY_WIDGET_SOURCES  
+  src/spectrum_display_widget.cpp
+)
+set(SPECTRUM_DISPLAY_WIDGET_HEADERS
+  include/spectrum_display_widget.hpp
+)
+QT5_WRAP_CPP(SPECTRUM_DISPLAY_WIDGET_MOCrcs
+  ${SPECTRUM_DISPLAY_WIDGET_HEADERS}
 )
 
 add_executable(fftw_test)
@@ -95,6 +105,29 @@ target_link_libraries(spectrum_analyzer_test
 PRIVATE
   spectrum_analyzer
 )
+
+add_library(spectrum_display_widget SHARED)
+target_sources(spectrum_display_widget
+PRIVATE
+    ${SPECTRUM_DISPLAY_WIDGET_SOURCES}
+    ${SPECTRUM_DISPLAY_WIDGET_HEADERS}
+    ${SPECTRUM_DISPLAY_WIDGET_MOCrcs}
+#    ${QTJACK_SPECTRUM_ANALYZER_WIDGET_UISrcs}
+#    ${RCC_SOURCES}
+)
+target_include_directories(spectrum_display_widget SYSTEM
+PUBLIC 
+  $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>/qtjack_spectrum_analyzer
+PRIVATE
+  include
+  ${CMAKE_CURRENT_BINARY_DIR} 
+)
+target_link_libraries(spectrum_display_widget
+PRIVATE
+  Qt5::Widgets
+  Qt5::Core
+)
+set_target_properties(spectrum_display_widget PROPERTIES PUBLIC_HEADER "${QTJACK_SPECTRUM_ANALYZER_WIDGET_HEADERS}")
 
 add_library(qtjack_spectrum_analyzer_widget SHARED)
 target_sources(qtjack_spectrum_analyzer_widget

@@ -31,9 +31,6 @@ public:
                                  float highFreq,
                                  QWidget *parent = nullptr);
   ~SpectrumDisplayWidget();
-  
-  // QObject
-  //  void timerEvent(QTimerEvent *event) override;
 
   // QWidget
   void paintEvent(QPaintEvent *event) override;
@@ -44,9 +41,7 @@ public slots:
   void printSpectrum(const float* spectrum, size_t length);
 
 private:
-  int barIndex(qreal frequency) const;
   std::pair<float, float> barRange(int barIndex) const;
-  void updateBars();
 
   void selectBar(int index);    
 private:

@@ -111,7 +111,9 @@ void SpectrumDisplayWidget::paintEvent(QPaintEvent *event) {
 
     for (int i=0; i<numBars; ++i) {
       const qreal value = m_bars[i].value;
-      Q_ASSERT(value >= 0.0 && value <= 1.0);
+      if(!(value >= 0.0 && value <= 1.0))
+        // ToDo: clipping here
+        printf("value[%d]: %g\n", i,value);
       QRect bar = rect();
       bar.setLeft(rect().left() + leftPaddingWidth + (i * (gapWidth + barWidth)));
       bar.setWidth(barWidth);
@@ -124,7 +126,7 @@ void SpectrumDisplayWidget::paintEvent(QPaintEvent *event) {
 
       painter.fillRect(bar, color);
     }
-  }  
+  }
 }
 
 void SpectrumDisplayWidget::mousePressEvent(QMouseEvent *event) {
@@ -141,24 +143,13 @@ void SpectrumDisplayWidget::reset() {
 
 void SpectrumDisplayWidget::printSpectrum(const float* spectrum, size_t length) {
   m_bars.assign(m_bars.size(),Bar());
-  for (int i = 0 ; i <= length; ++i) {
-        if (spectrum[i] >= m_lowFreq && spectrum[i] < m_highFreq) {
-            Bar &bar = m_bars[barIndex(i)];
-            bar.value = qMax(bar.value, spectrum[i]);
-            //bar.clipped |= spectrum[i]; //check for NaN
-        }
-    }
-    update();
-}
-
-
-int SpectrumDisplayWidget::barIndex(qreal frequency) const {
-  assert(frequency >= m_lowFreq && frequency < m_highFreq);
-  const qreal bandWidth = (m_highFreq - m_lowFreq) / m_bars.size();
-  const int index = (frequency - m_lowFreq) / bandWidth;
-  if (index <0 || index >= m_bars.size())
-    assert(false);
-  return index; 
+  for (int i = 0 ; i <= length/2; ++i) {
+    // ToDo: map Spectrum[m] to bars[n] (size m and n normally doesn't match)
+    Bar &bar = m_bars[i];
+    bar.value = spectrum[i];
+      //bar.clipped |= spectrum[i]; // ToDo: check clipping ?
+  }
+  update();
 }
 
 std::pair<float, float> SpectrumDisplayWidget::barRange(int index) const {

@@ -1,5 +1,5 @@
 /* 
- * This file is part of the rtaudio_example distribution (https://github.com/majorx234/qtjack_spectrum_analyzer ).
+ * This file is part of the qtjack_spectrum_analyzer distribution (https://github.com/majorx234/qtjack_spectrum_analyzer ).
  * Copyright (c) 2021-2022 Majorx234 <majorx234@googlemail.com>
  * 
  * This program is free software: you can redistribute it and/or modify  

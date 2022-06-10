@@ -147,6 +147,7 @@ PRIVATE
 )
 target_link_libraries(qtjack_spectrum_analyzer_widget
 PRIVATE
+  spectrum_display_widget
   qtjack::qtjack
   Qt5::Widgets
   Qt5::Core
@@ -168,6 +169,7 @@ PRIVATE
 target_link_libraries(qtjack_spectrum_analyzer_app
 PRIVATE
   qtjack_spectrum_analyzer_widget
+  spectrum_analyzer
   Qt5::Core
   Qt5::Widgets
   qtjack::qtjack

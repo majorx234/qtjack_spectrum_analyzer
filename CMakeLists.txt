@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
 project(qtjack_spectrum_analyzer
   DESCRIPTION "analyzer for Fourier spectrum of audio signals"
-  VERSION 0.0.1
+  VERSION 0.1.0
   LANGUAGES CXX)
 
 set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH}" "${PROJECT_SOURCE_DIR}/cmake")

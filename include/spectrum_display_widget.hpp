@@ -58,4 +58,5 @@ private:
   qreal m_highFreq;
 //  FrequencySpectrum m_spectrum;
 };
+
 #endif // SPECTRUM_DISPLAY_WIDGET
